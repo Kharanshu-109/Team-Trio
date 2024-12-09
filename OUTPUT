@@ -1,1 +1,60 @@
+user_id  song_id    artist      genre            timestamp  listen_duration
+0        1  song123  Artist A        Pop  2024-01-01 08:00:00              200
+1        2  song124  Artist B       Rock  2024-01-01 08:05:00              180
+2        1  song125  Artist C       Jazz  2024-01-01 08:10:00              220
+3        3  song126  Artist D  Classical  2024-01-01 08:15:00              300
+4        2  song123  Artist A        Pop  2024-01-01 08:20:00              200
+Most Popular Songs:
+song_id
+song123    2
+song124    2
+song125    1
+song126    1
+Name: count, dtype: int64
+
+Most Popular Genres:
+genre
+Pop          2
+Rock         2
+Jazz         1
+Classical    1
+Name: count, dtype: int64
+
+Most Active Users:
+user_id
+1    3
+2    2
+3    1
+Name: count, dtype: int64
+<ipython-input-7-8fa93c5f5603>:28: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.barplot(x=popular_songs.values, y=popular_songs.index, palette="viridis")
+
+<ipython-input-7-8fa93c5f5603>:36: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.barplot(x=popular_genres.values, y=popular_genres.index, palette="viridis")
+
+
+Listening Habits by Hour:
+hour
+8    6
+Name: count, dtype: int64
+
+
+Average Listen Duration per Genre:
+genre
+Classical    300.0
+Jazz         220.0
+Pop          200.0
+Rock         180.0
+Name: listen_duration, dtype: float64
+<ipython-input-7-8fa93c5f5603>:66: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.barplot(x=genre_duration.values, y=genre_duration.index, palette="viridis")
 
