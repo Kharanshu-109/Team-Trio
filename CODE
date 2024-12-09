@@ -1,1 +1,95 @@
+import pandas as pd
+
+# Sample data
+data = {
+    'user_id': [1, 2, 1, 3, 2, 1],
+    'song_id': ['song123', 'song124', 'song125', 'song126', 'song123', 'song124'],
+    'artist': ['Artist A', 'Artist B', 'Artist C', 'Artist D', 'Artist A', 'Artist B'],
+    'genre': ['Pop', 'Rock', 'Jazz', 'Classical', 'Pop', 'Rock'],
+    'timestamp': [
+        '2024-01-01 08:00:00', '2024-01-01 08:05:00', '2024-01-01 08:10:00', 
+        '2024-01-01 08:15:00', '2024-01-01 08:20:00', '2024-01-01 08:25:00'
+    ],
+    'listen_duration': [200, 180, 220, 300, 200, 180]
+}
+
+# Create a DataFrame
+df = pd.DataFrame(data)
+
+# Save DataFrame to CSV
+df.to_csv('/content/music_streaming_data.csv', index=False)
+print("Sample CSV file created!")
+
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the data from the created CSV file
+data = pd.read_csv('/content/music_streaming_data.csv')
+
+# Display the first few rows of the dataset
+print(data.head())
+
+# Analyze the most popular songs
+popular_songs = data['song_id'].value_counts().head(10)
+print("Most Popular Songs:")
+print(popular_songs)
+
+# Analyze the most popular genres
+popular_genres = data['genre'].value_counts().head(10)
+print("\nMost Popular Genres:")
+print(popular_genres)
+
+# Analyze the most active users
+active_users = data['user_id'].value_counts().head(10)
+print("\nMost Active Users:")
+print(active_users)
+
+# Visualize the most popular songs
+plt.figure(figsize=(10, 6))
+sns.barplot(x=popular_songs.values, y=popular_songs.index, palette="viridis")
+plt.title('Top 10 Most Popular Songs')
+plt.xlabel('Number of Listens')
+plt.ylabel('Song ID')
+plt.show()
+
+# Visualize the most popular genres
+plt.figure(figsize=(10, 6))
+sns.barplot(x=popular_genres.values, y=popular_genres.index, palette="viridis")
+plt.title('Top 10 Most Popular Genres')
+plt.xlabel('Number of Listens')
+plt.ylabel('Genre')
+plt.show()
+
+# Analyze user listening habits by hour of the day
+data['timestamp'] = pd.to_datetime(data['timestamp'])
+data['hour'] = data['timestamp'].dt.hour
+listening_hours = data['hour'].value_counts().sort_index()
+print("\nListening Habits by Hour:")
+print(listening_hours)
+
+# Visualize listening habits by hour of the day
+plt.figure(figsize=(10, 6))
+sns.lineplot(x=listening_hours.index, y=listening_hours.values, marker='o', color='b')
+plt.title('Listening Habits by Hour of the Day')
+plt.xlabel('Hour of the Day')
+plt.ylabel('Number of Listens')
+plt.xticks(range(0, 24))
+plt.grid(True)
+plt.show()
+
+# Analyze average listen duration per genre
+genre_duration = data.groupby('genre')['listen_duration'].mean().sort_values(ascending=False).head(10)
+print("\nAverage Listen Duration per Genre:")
+print(genre_duration)
+
+# Visualize average listen duration per genre
+plt.figure(figsize=(10, 6))
+sns.barplot(x=genre_duration.values, y=genre_duration.index, palette="viridis")
+plt.title('Top 10 Genres by Average Listen Duration')
+plt.xlabel('Average Listen Duration (seconds)')
+plt.ylabel('Genre')
+plt.show()
 
